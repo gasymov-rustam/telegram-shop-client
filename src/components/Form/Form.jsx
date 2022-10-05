@@ -21,13 +21,17 @@ export const Form = () => {
   };
 
   const onSendData = useCallback(() => {
-    tg.sendData(JSON.parse({ country, street, subject }));
+    const data = { country, street, subject };
+    tg.sendData(JSON.parse(data));
+    // tg.sendData(JSON.parse({ country, street, subject }));
   }, [country, street, subject, tg]);
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData);
 
-    return () => tg.offEvent('mainButtonClicked', onSendData);
+    return () => {
+      tg.offEvent('mainButtonClicked', onSendData);
+    };
   }, [onSendData, tg]);
 
   useEffect(() => {
