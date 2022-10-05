@@ -18,7 +18,6 @@ export const App = () => {
         <Route path='/form' element={<Form />} />
       </Routes>
       <Header />
-      <button onClick={onToggleButton}>Close</button>
     </div>
   );
 };

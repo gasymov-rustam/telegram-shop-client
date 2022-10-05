@@ -1,4 +1,3 @@
-// /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useState } from 'react';
 import { useTelegram } from '../../hooks';
 import './Form.css';
