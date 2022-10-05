@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+// /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useState } from 'react';
 import { useTelegram } from '../../hooks';
 import './Form.css';
@@ -27,7 +27,7 @@ export const Form = () => {
 
   useEffect(() => {
     tg.MainButton.setParams({
-      text: 'Отправить данные',
+      text: 'Send credentials',
     });
   }, []);
 
@@ -37,7 +37,7 @@ export const Form = () => {
     } else {
       tg.MainButton.show();
     }
-  }, [country, street]);
+  }, [country, street, tg]);
 
   const onChangeCountry = (e) => {
     setCountry(e.target.value);
@@ -50,46 +50,6 @@ export const Form = () => {
   const onChangeSubject = (e) => {
     setSubject(e.target.value);
   };
-
-  // const onChangeCountry = (e) => {
-  //   setCountry(e.target.value);
-  // };
-
-  // const onChangeStreet = (e) => {
-  //   setStreet(e.target.value);
-  // };
-
-  // const onChangeSubject = (e) => {
-  //   setSubject(e.target.value);
-  // };
-
-  // const onSendData = useCallback(() => {
-  //   const data = { country, street, subject };
-  //   tg.sendData(JSON.parse(data));
-  //   // tg.sendData(JSON.parse({ country, street, subject }));
-  // }, [country, street, subject, tg]);
-
-  // useEffect(() => {
-  //   tg.onEvent('mainButtonClicked', onSendData);
-
-  //   return () => {
-  //     tg.offEvent('mainButtonClicked', onSendData);
-  //   };
-  // }, [onSendData, tg]);
-
-  // useEffect(() => {
-  //   tg.MainButton.setParams({
-  //     text: 'Send credentials',
-  //   });
-  // }, [tg.MainButton]);
-
-  // useEffect(() => {
-  //   if (!street || !country) {
-  //     tg.MainButton.hide();
-  //   } else {
-  //     tg.MainButton.show();
-  //   }
-  // }, [country, street, tg.MainButton]);
 
   return (
     <div className='form'>
