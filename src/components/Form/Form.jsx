@@ -8,6 +8,36 @@ export const Form = () => {
   const [subject, setSubject] = useState('');
   const { tg } = useTelegram();
 
+  const onSendData = useCallback(() => {
+    const data = {
+      country,
+      street,
+      subject,
+    };
+    tg.sendData(JSON.stringify(data));
+  }, [country, street, subject]);
+
+  useEffect(() => {
+    tg.onEvent('mainButtonClicked', onSendData);
+    return () => {
+      tg.offEvent('mainButtonClicked', onSendData);
+    };
+  }, [onSendData]);
+
+  useEffect(() => {
+    tg.MainButton.setParams({
+      text: 'Отправить данные',
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!street || !country) {
+      tg.MainButton.hide();
+    } else {
+      tg.MainButton.show();
+    }
+  }, [country, street]);
+
   const onChangeCountry = (e) => {
     setCountry(e.target.value);
   };
@@ -20,33 +50,45 @@ export const Form = () => {
     setSubject(e.target.value);
   };
 
-  const onSendData = useCallback(() => {
-    const data = { country, street, subject };
-    tg.sendData(JSON.parse(data));
-    // tg.sendData(JSON.parse({ country, street, subject }));
-  }, [country, street, subject, tg]);
+  // const onChangeCountry = (e) => {
+  //   setCountry(e.target.value);
+  // };
 
-  useEffect(() => {
-    tg.onEvent('mainButtonClicked', onSendData);
+  // const onChangeStreet = (e) => {
+  //   setStreet(e.target.value);
+  // };
 
-    return () => {
-      tg.offEvent('mainButtonClicked', onSendData);
-    };
-  }, [onSendData, tg]);
+  // const onChangeSubject = (e) => {
+  //   setSubject(e.target.value);
+  // };
 
-  useEffect(() => {
-    tg.MainButton.setParams({
-      text: 'Send credentials',
-    });
-  }, [tg.MainButton]);
+  // const onSendData = useCallback(() => {
+  //   const data = { country, street, subject };
+  //   tg.sendData(JSON.parse(data));
+  //   // tg.sendData(JSON.parse({ country, street, subject }));
+  // }, [country, street, subject, tg]);
 
-  useEffect(() => {
-    if (!street || !country) {
-      tg.MainButton.hide();
-    } else {
-      tg.MainButton.show();
-    }
-  }, [country, street, tg.MainButton]);
+  // useEffect(() => {
+  //   tg.onEvent('mainButtonClicked', onSendData);
+
+  //   return () => {
+  //     tg.offEvent('mainButtonClicked', onSendData);
+  //   };
+  // }, [onSendData, tg]);
+
+  // useEffect(() => {
+  //   tg.MainButton.setParams({
+  //     text: 'Send credentials',
+  //   });
+  // }, [tg.MainButton]);
+
+  // useEffect(() => {
+  //   if (!street || !country) {
+  //     tg.MainButton.hide();
+  //   } else {
+  //     tg.MainButton.show();
+  //   }
+  // }, [country, street, tg.MainButton]);
 
   return (
     <div className='form'>
