@@ -10,26 +10,27 @@ export const Form = () => {
   const { tg } = useTelegram();
 
   const onSendData = useCallback(() => {
-    const data = {
-      country,
-      street,
-      subject,
-    };
-    tg.sendData(JSON.stringify(data));
-  }, [country, street, subject]);
+    tg.sendData(
+      JSON.stringify({
+        country,
+        street,
+        subject,
+      })
+    );
+  }, [country, street, subject, tg]);
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', onSendData);
     return () => {
       tg.offEvent('mainButtonClicked', onSendData);
     };
-  }, [onSendData]);
+  }, [onSendData, tg]);
 
   useEffect(() => {
     tg.MainButton.setParams({
       text: 'Send credentials',
     });
-  }, []);
+  }, [tg]);
 
   useEffect(() => {
     if (!street || !country) {
