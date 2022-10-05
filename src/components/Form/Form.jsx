@@ -35,7 +35,8 @@ export const Form = () => {
   }, [country, street, tg.MainButton]);
 
   return (
-    <div>
+    <div className='form'>
+      <h1>Enter your credentials</h1>
       <input
         className='input'
         type='text'
