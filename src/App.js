@@ -5,19 +5,19 @@ import { Form, Header, ProductList } from './components';
 import { useTelegram } from './hooks';
 
 export const App = () => {
-  const { onToggleButton, tg } = useTelegram();
+  const { tg } = useTelegram();
 
   useEffect(() => {
     tg.ready();
   }, [tg]);
 
   return (
-    <div>
+    <div className='App'>
+      <Header />
       <Routes>
         <Route index element={<ProductList />} />
-        <Route path='/form' element={<Form />} />
+        <Route path={'form'} element={<Form />} />
       </Routes>
-      <Header />
     </div>
   );
 };
