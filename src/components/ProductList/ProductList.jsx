@@ -64,7 +64,7 @@ export const ProductList = () => {
   return (
     <div className='list'>
       {products.map((item) => (
-        <ProductItem key={item} className='item' product={item} onAdd={onAdd} />
+        <ProductItem key={item.id} className='item' product={item} onAdd={onAdd} />
       ))}
     </div>
   );
